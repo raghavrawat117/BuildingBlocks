@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/dev3/Redis/RedisConsoleAppv1/RedisConsoleAppv1.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
+

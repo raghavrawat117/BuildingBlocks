@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/dev3/" />
+  <Folder Name="/dev3/Redis/">
+    <Project Path="dev3/Redis/RedisConsoleAppv1/RedisConsoleAppv1.csproj" />
+  </Folder>
+</Solution>
