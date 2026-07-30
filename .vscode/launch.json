@@ -11,6 +11,20 @@
             "cwd": "${workspaceFolder}/dev3/Redis/RedisConsoleAppv1",
             "console": "integratedTerminal",
             "stopAtEntry": false
+        },
+        {
+            "name": ".NET Debug LearnersApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-learnersapi",
+            "program": "${workspaceFolder}/dev3/WebAPI/LearnersApi/bin/Debug/net10.0/LearnersApi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/dev3/WebAPI/LearnersApi",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "integratedTerminal",
+            "stopAtEntry": false
         }
     ]
 }

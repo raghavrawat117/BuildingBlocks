@@ -10,7 +10,16 @@
                 "${workspaceFolder}/dev3/Redis/RedisConsoleAppv1/RedisConsoleAppv1.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-learnersapi",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/dev3/WebAPI/LearnersApi/LearnersApi.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }
-

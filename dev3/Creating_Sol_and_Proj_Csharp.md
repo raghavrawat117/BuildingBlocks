@@ -6,9 +6,15 @@
 
 - Create WebAPI Project <br>
 `dotnet new webapi -n TestWebAPI`
+> This is for minimal API
+
+`dotnet new webapi -f net10.0 --use-controllers -o LearnersApi`
+> This is API with controller
 
 - Add app to solution<br>
 `dotnet sln add dev3/Redis/RedisConsoleAppv1/RedisConsoleAppv1.csproj`
+
+- `dotnet sln add C:\Codes\BuildingBlocks\dev3\WebAPI\LearnersApi\LearnersApi.csproj`
 
 > Note : It is path to the .csproj file.
 

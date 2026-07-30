@@ -3,4 +3,7 @@
   <Folder Name="/dev3/Redis/">
     <Project Path="dev3/Redis/RedisConsoleAppv1/RedisConsoleAppv1.csproj" />
   </Folder>
+  <Folder Name="/dev3/WebAPI/">
+    <Project Path="dev3/WebAPI/LearnersApi/LearnersApi.csproj" />
+  </Folder>
 </Solution>
