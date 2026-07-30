@@ -20,7 +20,7 @@ namespace RedisConsoleAppv1 {
             string ans = "";
             bool result = false;
 
-            // Index Search of Redis
+            // // Index Search of Redis
             //ans = redisService.IndexedSearch("empIdx:v2", "@experience:[1,10]");
 
             // Inserting one employee
@@ -40,7 +40,7 @@ namespace RedisConsoleAppv1 {
             // Employee e_ans = employeeRepo.GetEmployee(5);
             // Console.Write(JsonSerializer.Serialize(e_ans));
 
-            // Inserting many = Load
+            // // // Inserting many : Load
             // List<Employee>? employees = JsonSerializer
             //                             .Deserialize<List<Employee>>
             //                             (fileService.FileToString("employees.json"));

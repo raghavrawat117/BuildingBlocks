@@ -3,7 +3,8 @@ namespace RedisConsoleAppv1
     public static class MyEnv_Dev
     {
         // Don't use this class.
-        // Create a class MyEnv (it's added to .gitignore, so credentials will not get checked into the repo)
+        // Create file ENV.cs (it's added to .gitignore, so credentials will not get checked into the repo)
+        // then add this class removing _Dev => MyEnv 
         // Update the values there
         // Keep it static so we can use without object creation
         public static class Redis

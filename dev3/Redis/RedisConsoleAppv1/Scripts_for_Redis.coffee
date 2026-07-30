@@ -35,3 +35,8 @@ FT.INFO 'empIdx:v2'
 FT.SEARCH 'empIdx:v2' @location:(Banglore)
 FT.SEARCH 'empIdx:v2' @experience:[2,5]
 FT.SEARCH 'empIdx:v2' @grade:[3,5]
+
+## multiple search
+FT.SEARCH 'empIdx:v2' " @experience:[2,5] @location:(Banglore) "
+FT.SEARCH 'empIdx:v2' " @experience:[2,5] @location:'New York' "
+FT.SEARCH 'empIdx:v2' ' @experience:[2,5] @location:"New York" '
