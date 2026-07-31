@@ -1,0 +1,10 @@
+{
+    "empId": 5,
+    "firstName": "John",
+    "lastName": "Doe",
+    "location": "New York",
+    "grade": 3,
+    "experience": 7,
+    "phoneNumber": 4089999999,
+    "workEmail": "john.doe@laminar.com"
+}
