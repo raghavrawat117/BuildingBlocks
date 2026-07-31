@@ -5,7 +5,7 @@
             "name": ".NET Debug RedisConsoleAppv1",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build-redisconsoleapp-v1",
             "program": "${workspaceFolder}/dev3/Redis/RedisConsoleAppv1/bin/Debug/net10.0/RedisConsoleAppv1.dll",
             "args": [],
             "cwd": "${workspaceFolder}/dev3/Redis/RedisConsoleAppv1",
