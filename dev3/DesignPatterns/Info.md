@@ -20,14 +20,14 @@
 7. Proxy Pattern
 
 ## Behavioral
-1. Chain of Responsibility Pattern
-2. Command Pattern
-3. Interpreter Pattern
-4. Iterator Pattern
-5. Mediator Pattern
-6. Memento Pattern
-7. Observer Pattern
-8. State Pattern
-9. Strategy Pattern
-10. Template Method Pattern
-11. Visitor Pattern
+- Chain of Responsibility Pattern
+- Command Pattern
+- Interpreter Pattern
+- Iterator Pattern
+- Mediator Pattern
+- Memento Pattern
+- Observer Pattern
+- State Pattern
+- Strategy Pattern
+- Template Method Pattern
+- Visitor Pattern
