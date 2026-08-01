@@ -21,13 +21,21 @@
 
 ## Behavioral
 - Chain of Responsibility Pattern
-- Command Pattern
-- Interpreter Pattern
-- Iterator Pattern
-- Mediator Pattern
-- Memento Pattern
 - Observer Pattern
-- State Pattern
 - Strategy Pattern
+- Command Pattern
+- State Pattern
 - Template Method Pattern
+- Mediator Pattern
+- Iterator Pattern
+- Memento Pattern
 - Visitor Pattern
+- Interpreter Pattern
+
+## About 
+* ✅ Clean separation into **Creational**, **Structural**, and **Behavioral** folders.
+* ✅ Each pattern has its own folder.
+* ✅ A dedicated **Program.cs** for running examples.
+* ✅ A **Chat.md** documenting the explanation beside the code.
+* ✅ A root runner where you can uncomment and execute a pattern quickly.
+* ✅ Consistent naming across projects.
