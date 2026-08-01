@@ -4,7 +4,8 @@ using NRedisStack;
 using NRedisStack.RedisStackCommands;
 using NRedisStack.Search;
 
-namespace Services.Implementations.RedisI {
+namespace Services.Implementations.RedisI
+{
     public class RedisService : IRedisService
     {
         private readonly RedisConfig _redisConfig;
@@ -15,10 +16,11 @@ namespace Services.Implementations.RedisI {
         {
             _redisConfig = redisConfig;
             IConnectionMultiplexer muxer = ConnectionMultiplexer.Connect(
-                new ConfigurationOptions{
-                    EndPoints = {{_redisConfig.Host, _redisConfig.Port} },
-                    User=_redisConfig.User,
-                    Password=_redisConfig.Password
+                new ConfigurationOptions
+                {
+                    EndPoints = { { _redisConfig.Host, _redisConfig.Port } },
+                    User = _redisConfig.User,
+                    Password = _redisConfig.Password
                 }
             );
             _db = muxer.GetDatabase();
@@ -28,26 +30,28 @@ namespace Services.Implementations.RedisI {
         public string IndexedSearch(string indexName, string query)
         {
             // https://redis.io/docs/latest/develop/clients/dotnet/nredisstack/queryjson/#query-the-data
-            try{
+            try
+            {
                 // $ means the root path of the JSON document
                 SearchResult resultOfIndexedSearch = _db.FT().Search(
                     indexName, new Query(query)
                 );
                 // // for debugging purposes, Ctrl + K + C comment Ctrl + K + U uncomment
-                 Console.WriteLine($"{indexName}   {query}");
+                Console.WriteLine($"{indexName}   {query}");
 
-                if( resultOfIndexedSearch == null ) { return "" ; }
-                Console.WriteLine(string.Join(", ",resultOfIndexedSearch.Documents.Select(x => x["json"])));
+                if (resultOfIndexedSearch == null) { return ""; }
+                Console.WriteLine(string.Join(", ", resultOfIndexedSearch.Documents.Select(x => x["json"])));
 
                 string resultString = "[" +
-                            string.Join(", ",resultOfIndexedSearch.Documents.Select(x => x["json"])) 
+                            string.Join(", ", resultOfIndexedSearch.Documents.Select(x => x["json"]))
                         + "]";
 
                 // // for debugging purposes, Ctrl + K + C comment Ctrl + K + U uncomment
                 // Console.WriteLine(resultString);
                 return resultString;
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Console.WriteLine($"{ex.Message}");
                 return "";
             }
@@ -55,11 +59,13 @@ namespace Services.Implementations.RedisI {
 
         public string GetString(string key)
         {
-            try{
+            try
+            {
                 RedisValue value = _db.StringGet(key);
                 return value.HasValue ? value.ToString() : "";
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Console.WriteLine($"{ex.Message}");
                 return "";
             }
@@ -69,11 +75,13 @@ namespace Services.Implementations.RedisI {
 
         public bool SetString(string key, string value)
         {
-            try{
+            try
+            {
                 _db.StringSet(key, value);
                 return true;
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Console.WriteLine($"{ex.Message}");
                 return false;
             }
@@ -81,11 +89,13 @@ namespace Services.Implementations.RedisI {
 
         public string GetJson(string key)
         {
-            try{
+            try
+            {
                 RedisResult result = _jsonCommands.Get(key);
                 return result.IsNull ? string.Empty : result.ToString();
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Console.WriteLine($"{ex.Message}");
                 return "";
             }
@@ -93,23 +103,55 @@ namespace Services.Implementations.RedisI {
 
         public bool SetJson(string key, object value)
         {
-            try{
+            try
+            {
                 // $ means the root path of the JSON document
                 _jsonCommands.Set(key, "$", value);
                 return true;
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Console.WriteLine($"{ex.Message}");
                 return false;
             }
         }
-        
+
+        public bool KeyExists(string key)
+        {
+            try
+            {
+                return _db.KeyExists(key);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        //JSON.Merge only Overwrites the fields present in "Value"
+        //Note - Passing Null will delete that field
+        public bool MergeJson(string key, string path, object value)
+        {
+            try
+            {
+                _jsonCommands.Merge(key,path,value);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
         public bool SetStrings(Dictionary<string, string> keyValuePairs)
         {
-            try{ // this method is MGET equivalent
-                List<KeyValuePair<RedisKey, RedisValue>> redisKeyValuePairs 
+            try
+            { // this method is MGET equivalent
+                List<KeyValuePair<RedisKey, RedisValue>> redisKeyValuePairs
                 = new List<KeyValuePair<RedisKey, RedisValue>>();
-                
+
                 foreach (KeyValuePair<string, string> kv in keyValuePairs)
                 {
                     redisKeyValuePairs.Add(new KeyValuePair<RedisKey, RedisValue>(kv.Key, kv.Value));
@@ -117,7 +159,8 @@ namespace Services.Implementations.RedisI {
                 _db.StringSet(redisKeyValuePairs.ToArray()); // needs to be an array
                 return true;
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Console.WriteLine($"{ex.Message}");
                 return false;
             }
@@ -125,11 +168,13 @@ namespace Services.Implementations.RedisI {
 
         public bool DeleteString(string key)
         {
-            try{
+            try
+            {
                 _db.KeyDelete(key);
                 return true;
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Console.WriteLine($"{ex.Message}");
                 return false;
             }
@@ -137,12 +182,14 @@ namespace Services.Implementations.RedisI {
 
         public bool DeleteStrings(List<string> keys)
         {
-            try{ // https://share.google/aimode/x36h6X7kXfHxpGeni
+            try
+            { // https://share.google/aimode/x36h6X7kXfHxpGeni
                 RedisKey[] keysToDelete = keys.Select(k => (RedisKey)k).ToArray();
                 _db.KeyDelete(keysToDelete);
                 return true;
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Console.WriteLine($"{ex.Message}");
                 return false;
             }
@@ -150,11 +197,13 @@ namespace Services.Implementations.RedisI {
 
         public bool DeleteJson(string keys)
         {
-            try{
+            try
+            {
                 _jsonCommands.Del(keys);
                 return true;
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 Console.WriteLine($"{ex.Message}");
                 return false;
             }

@@ -12,5 +12,11 @@ namespace Abstractions.IRedisService {
         public bool DeleteStrings(List<string> keys);
         public bool DeleteJson(string key);
         public void futureMethod();
+        
+        //Reason to add another method with same name(Overloading)
+        //It is easy to update redis using "$" path,If we know what fields to update.
+        //public bool SetJson(string key,string path,object value);
+        public bool KeyExists(string key);
+        public bool MergeJson(string key,string path,object value);
     } 
 }

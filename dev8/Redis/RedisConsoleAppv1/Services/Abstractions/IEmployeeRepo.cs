@@ -13,10 +13,10 @@ namespace Abstractions.IEmployeeRepo {
         /// <param name="empId">The ID of the employee to update.</param>
         /// <param name="updateEmployee">The updated employee information.</param>
         /// <returns>True if the employee was updated successfully, false otherwise.</returns>
-        public bool UpdateEmployee(int empId, UpdateEmployee updateEmployee);
-        //TBD
-        public List<Employee> GetEmployeeByLocation(string location);
-        //TBDv
+         public bool UpdateEmployee(UpdateEmployee updateEmployee);
+        // //TBD
+        // public List<Employee> GetEmployeeByLocation(string location);
+        // //TBD
         public bool UpdateEmployees(List<UpdateEmployee> updateEmployees);
         public bool DeleteEmployee(int empId);
         public bool DeleteEmployees(List<int> empIds);

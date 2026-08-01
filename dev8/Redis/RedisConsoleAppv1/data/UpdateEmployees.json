@@ -1,0 +1,27 @@
+[
+    {
+        "empId": 1,
+        "location": "Pune",
+        "experience": 6,
+        "workEmail": "anibrata.saha.pune@laminar.com"
+    },
+    {
+        "empId": 3,
+        "firstName": "Raghavendra",
+        "grade": 3,
+        "phoneNumber": 4091111111
+    },
+    {
+        "empId": 6,
+        "lastName": "Roy",
+        "location": "Chennai",
+        "experience": 4
+    },
+    {
+        "empId": 8,
+        "firstName": "V Abhinav",
+        "location": "Bangalore",
+        "grade": 2,
+        "workEmail": "v.abhinav.reddy@laminar.com"
+    }
+]

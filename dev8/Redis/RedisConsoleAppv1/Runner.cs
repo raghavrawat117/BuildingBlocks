@@ -21,7 +21,7 @@ namespace RedisConsoleAppv1 {
             bool result = false;
 
             // Index Search of Redis
-            ans = redisService.IndexedSearch("empIdx:v2", "@experience:[1,10]");
+            //ans = redisService.IndexedSearch("empIdx:v2", "@experience:[1,10]");
 
             // Inserting one employee
             // Employee employee = new Employee{
@@ -46,9 +46,25 @@ namespace RedisConsoleAppv1 {
             //                             .Deserialize<List<Employee>>
             //                             (fileService.FileToString("employees.json"));
             // result = employeeRepo.InsertEmployees(employees);
-            
+
+            //Update employee
+            // UpdateEmployee updateEmployee = new UpdateEmployee{
+            //     EmpId = 8,
+            //     Location = "Banglore",
+            //     Grade = Grade.Junior
+            // };
+            // result = employeeRepo.UpdateEmployee(updateEmployee);
+            // ans = redisService.GetJson($"emp:{updateEmployee.EmpId}");
+
+            //Updating many employees = Load
+            List<UpdateEmployee>? updateEmployees = JsonSerializer
+                                        .Deserialize<List<UpdateEmployee>>
+                                        (fileService.FileToString("UpdateEmployees.json"));
+            result = employeeRepo.UpdateEmployees(updateEmployees);;
+
+
             Console.WriteLine(result);
-             Console.WriteLine(ans);
+            Console.WriteLine(ans);
         } 
     } 
 }
