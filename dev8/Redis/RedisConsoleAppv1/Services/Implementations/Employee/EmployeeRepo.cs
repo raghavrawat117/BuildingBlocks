@@ -101,7 +101,7 @@ namespace Services.Implementations.EmployeeI
                     var patch = BuildPatch(updateEmployee);
                     if (patch.Count == 0)
                         continue;
-                    
+
                     bool success = _redisService.MergeJson(key, "$", patch);
                     if (!success)
                         allSucceded = false;
@@ -116,6 +116,30 @@ namespace Services.Implementations.EmployeeI
             }
         }
 
+        public List<Employee> GetEmployeeByLocation(string location)
+        {
+            try
+            {
+                string result =
+                    _redisService.IndexedSearch(
+                        "empIdx:v2",
+                        $"@location:{location}"
+                    );
+
+                if (string.IsNullOrWhiteSpace(result))
+                {
+                    return new List<Employee>();
+                }
+
+                return JsonSerializer.Deserialize<List<Employee>>(result)
+                       ?? new List<Employee>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<Employee>();
+            }
+        }
         public bool DeleteEmployee(int empId)
         {
             try

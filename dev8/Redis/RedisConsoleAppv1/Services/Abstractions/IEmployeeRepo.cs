@@ -15,7 +15,7 @@ namespace Abstractions.IEmployeeRepo {
         /// <returns>True if the employee was updated successfully, false otherwise.</returns>
          public bool UpdateEmployee(UpdateEmployee updateEmployee);
         // //TBD
-        // public List<Employee> GetEmployeeByLocation(string location);
+        public List<Employee> GetEmployeeByLocation(string location);
         // //TBD
         public bool UpdateEmployees(List<UpdateEmployee> updateEmployees);
         public bool DeleteEmployee(int empId);

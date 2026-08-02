@@ -57,14 +57,21 @@ namespace RedisConsoleAppv1 {
             // ans = redisService.GetJson($"emp:{updateEmployee.EmpId}");
 
             //Updating many employees = Load
-            List<UpdateEmployee>? updateEmployees = JsonSerializer
-                                        .Deserialize<List<UpdateEmployee>>
-                                        (fileService.FileToString("UpdateEmployees.json"));
-            result = employeeRepo.UpdateEmployees(updateEmployees);;
+            // List<UpdateEmployee>? updateEmployees = JsonSerializer
+            //                             .Deserialize<List<UpdateEmployee>>
+            //                             (fileService.FileToString("UpdateEmployees.json"));
+            // result = employeeRepo.UpdateEmployees(updateEmployees);
 
+            //GetEmployeeByLocation
+            List<Employee> employeeList = employeeRepo.GetEmployeeByLocation("Pune"); 
 
-            Console.WriteLine(result);
-            Console.WriteLine(ans);
+            foreach(Employee emp in employeeList)
+            {
+                Console.WriteLine(JsonSerializer.Serialize(emp));
+                Console.WriteLine("-------------------------------------------------------");
+            }
+            //Console.WriteLine(result);
+            //Console.WriteLine(ans);
         } 
     } 
 }
