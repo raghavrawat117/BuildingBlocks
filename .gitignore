@@ -430,3 +430,4 @@ FodyWeavers.xsd
 dev3/Redis/RedisConsoleAppv1/ENV.cs
 dev8/Redis/RedisConsoleAppv1/ENV.cs
 ENV.cs*
+appsettings.Development.json*

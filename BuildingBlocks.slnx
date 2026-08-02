@@ -8,5 +8,6 @@
   </Folder>
   <Folder Name="/dev3/WebAPI/">
     <Project Path="dev3/WebAPI/LearnersApi/LearnersApi.csproj" />
+    <Project Path="dev3/WebAPI/LearningJwt/Just-GettingStarted-Jwt-Api/Just-GettingStarted-Jwt-Api.csproj" />
   </Folder>
 </Solution>

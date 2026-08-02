@@ -20,6 +20,16 @@
                 "${workspaceFolder}/dev3/WebAPI/LearnersApi/LearnersApi.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-Just-GettingStarted-Jwt-Api",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/dev3/WebAPI/LearningJwt/Just-GettingStarted-Jwt-Api/Just-GettingStarted-Jwt-Api.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }

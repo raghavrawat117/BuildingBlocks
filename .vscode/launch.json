@@ -25,6 +25,20 @@
             },
             "console": "integratedTerminal",
             "stopAtEntry": false
+        },
+        {
+            "name": ".NET Debug JustGettingStarted",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-Just-GettingStarted-Jwt-Api",
+            "program": "${workspaceFolder}/dev3/WebAPI/LearningJwt/Just-GettingStarted-Jwt-Api/bin/Debug/net10.0/Just-GettingStarted-Jwt-Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/dev3/WebAPI/LearningJwt/Just-GettingStarted-Jwt-Api",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "integratedTerminal",
+            "stopAtEntry": false
         }
     ]
 }
