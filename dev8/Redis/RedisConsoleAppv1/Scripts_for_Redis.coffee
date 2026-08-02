@@ -35,3 +35,7 @@ FT.INFO 'empIdx:v2'
 FT.SEARCH 'empIdx:v2' @location:(Banglore)
 FT.SEARCH 'empIdx:v2' @experience:[2,5]
 FT.SEARCH 'empIdx:v2' @grade:[3,5]
+
+## Using JSON.SET and JSON.MERGE to update the existing json data
+JSON.SET user:100 $ '{"name": "Alice", "age": 30, "settings": {"theme": "dark"}, "tags": ["admin"]}'
+JSON.MERGE user:100 $ '{"age": 31, "settings": {"theme": "light"}, "verified": true}'
