@@ -4,5 +4,7 @@ namespace EmployeeAPI.Services;
 
 public interface IEmployeeService
 {
-    List<Employee> GetEmployees();
+    Task<List<Employee>> GetAsync();
+    Task<Employee?> GetByIdAsync(string id);
+    Task CreateAsync(Employee employee);
 }
