@@ -1,42 +1,46 @@
-using EmployeeAPI.Models;
+using EmployeeAPI.DTOs;
 using EmployeeAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeAPI.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public class EmployeeController : ControllerBase
 {
-    private readonly IEmployeeService _service;
+    private readonly IEmployeeService _employeeService;
 
-    public EmployeeController(IEmployeeService service)
+    public EmployeeController(
+        IEmployeeService employeeService)
     {
-        _service = service;
+        _employeeService = employeeService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Employee>>> Get()
+    public async Task<ActionResult<List<EmployeeResponseDto>>> GetAll()
     {
-        return await _service.GetAsync();
+        var employees = await _employeeService.GetAllEmployeesAsync();
+
+        return Ok(employees);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Employee>> GetById(string id)
+    public async Task<ActionResult<EmployeeResponseDto>> GetById(string id)
     {
-        var employee = await _service.GetByIdAsync(id);
+        var employee = await _employeeService.GetEmployeeByIdAsync(id);
 
-        if (employee is null)
+        if (employee == null)
             return NotFound();
 
-        return employee;
+        return Ok(employee);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(Employee employee)
+    public async Task<IActionResult> Create(
+        [FromBody] CreateEmployeeDto dto)
     {
-        await _service.CreateAsync(employee);
+        await _employeeService.CreateEmployeeAsync(dto);
 
-        return Ok(employee);
+        return Created();
     }
 }

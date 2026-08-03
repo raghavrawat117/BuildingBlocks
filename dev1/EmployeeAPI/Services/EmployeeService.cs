@@ -1,44 +1,62 @@
+using EmployeeAPI.DTOs;
 using EmployeeAPI.Models;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
 
 namespace EmployeeAPI.Services;
-
 public class EmployeeService : IEmployeeService
 {
-    private readonly IMongoCollection<Employee> _employeeCollection;
+    private readonly IEmployeeRepository _repository;
 
     public EmployeeService(
-        IOptions<EmployeeDatabaseSettings> settings)
+        IEmployeeRepository repository)
     {
-        var mongoClient =
-            new MongoClient(settings.Value.ConnectionString);
-
-        var mongoDatabase =
-            mongoClient.GetDatabase(
-                settings.Value.DatabaseName);
-
-        _employeeCollection =
-            mongoDatabase.GetCollection<Employee>(
-                settings.Value.EmployeeCollectionName);
+        _repository = repository;
     }
 
-    public async Task<List<Employee>> GetAsync()
+    public async Task<List<EmployeeResponseDto>>
+        GetAllEmployeesAsync()
     {
-        return await _employeeCollection
-            .Find(_ => true)
-            .ToListAsync();
+        var employees =
+            await _repository.GetAllAsync();
+
+        return employees.Select(e =>
+            new EmployeeResponseDto
+            {
+                Id = e.Id!,
+                Name = e.Name,
+                Department = e.Department,
+                Email = e.Email
+            }).ToList();
     }
 
-    public async Task<Employee?> GetByIdAsync(string id)
+    public async Task CreateEmployeeAsync(
+        CreateEmployeeDto dto)
     {
-        return await _employeeCollection
-            .Find(x => x.Id == id)
-            .FirstOrDefaultAsync();
+        var employee = new Employee
+        {
+            Name = dto.Name,
+            Department = dto.Department,
+            Email = dto.Email,
+            Salary = dto.Salary
+        };
+
+        await _repository.CreateAsync(employee);
     }
 
-    public async Task CreateAsync(Employee employee)
+    public async Task<EmployeeResponseDto?>
+        GetEmployeeByIdAsync(string id)
     {
-        await _employeeCollection.InsertOneAsync(employee);
+        var employee =
+            await _repository.GetByIdAsync(id);
+
+        if (employee == null)
+            return null;
+
+        return new EmployeeResponseDto
+        {
+            Id = employee.Id!,
+            Name = employee.Name,
+            Department = employee.Department,
+            Email = employee.Email
+        };
     }
 }

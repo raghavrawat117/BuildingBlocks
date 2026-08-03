@@ -1,10 +1,11 @@
-using EmployeeAPI.Models;
+using EmployeeAPI.DTOs;
 
 namespace EmployeeAPI.Services;
-
 public interface IEmployeeService
 {
-    Task<List<Employee>> GetAsync();
-    Task<Employee?> GetByIdAsync(string id);
-    Task CreateAsync(Employee employee);
+    Task<List<EmployeeResponseDto>> GetAllEmployeesAsync();
+
+    Task<EmployeeResponseDto?> GetEmployeeByIdAsync(string id);
+
+    Task CreateEmployeeAsync(CreateEmployeeDto dto);
 }
