@@ -1,0 +1,46 @@
+[
+    {
+        "employeeId": 1,
+        "physicalPersonId": 1,
+        "firstName": "Anibrata",
+        "lastName": "Saha",
+        "location": "Kolkata",
+        "grade": 3,
+        "experience": 4,
+        "phoneNumber": 4085555555,
+        "workEmail": "anibrata.saha@laminar.com"
+    },
+    {
+        "employeeId": 3,
+        "physicalPersonId": 3,
+        "firstName": "Raghav",
+        "lastName": "Rawat",
+        "location": "Noida",
+        "grade": 1,
+        "experience": 5,
+        "phoneNumber": 4081111111,
+        "workEmail": "raghav.rawat@laminar.com"
+    },
+    {
+        "employeeId": 6,
+        "physicalPersonId": 6,
+        "firstName": "Devdutt",
+        "lastName": "Rai",
+        "location": "Banglore",
+        "grade": 2,
+        "experience": 2,
+        "phoneNumber": 4082222222,
+        "workEmail": "devdutt.rai@laminar.com"
+    },
+    {
+        "employeeId": 8,
+        "physicalPersonId": 8,
+        "firstName": "Abhinav",
+        "lastName": "Reddy",
+        "location": "Hyderabad",
+        "grade": 3,
+        "experience": 1,
+        "phoneNumber": 4083333333,
+        "workEmail": "abhinav.reddy@laminar.com"
+    }
+]

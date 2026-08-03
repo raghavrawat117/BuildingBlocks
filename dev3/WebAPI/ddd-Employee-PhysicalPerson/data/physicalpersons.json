@@ -1,0 +1,30 @@
+[
+    {
+        "physicalPersonId": 1,
+        "name": "Anibrata",
+        "address": "Kolkata 123",
+        "phoneNumber": 4085555555,
+        "ssno": 1111111
+    },
+    {
+        "physicalPersonId": 3,
+        "name": "Raghav Rawat",
+        "address": "Noida 201301",
+        "phoneNumber": 4081111111,
+        "ssno": 3333333
+    },
+    {
+        "physicalPersonId": 6,
+        "name": "Devdutt Rai",
+        "address": "Banglore 123",
+        "phoneNumber": 4082222222,
+        "ssno": 6666666
+    },
+    {
+        "physicalPersonId": 8,
+        "name": "Abhinav Reddy",
+        "address": "Hyderabad 123",
+        "phoneNumber": 4083333333,
+        "ssno": 8888888
+    }
+]

@@ -1,0 +1,11 @@
+{
+    "employeeId": 5,
+    "physicalPersonId": 5,
+    "firstName": "John",
+    "lastName": "Doe",
+    "location": "New York",
+    "grade": 3,
+    "experience": 7,
+    "phoneNumber": 40854545454,
+    "workEmail": "john.doe@laminar.com"
+}
