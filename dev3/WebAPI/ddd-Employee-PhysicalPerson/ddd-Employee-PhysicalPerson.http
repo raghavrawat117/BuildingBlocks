@@ -1,0 +1,6 @@
+@ddd_Employee_PhysicalPerson_HostAddress = http://localhost:5221
+
+GET {{ddd_Employee_PhysicalPerson_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

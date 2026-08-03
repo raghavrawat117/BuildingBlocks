@@ -40,6 +40,16 @@
                 "${workspaceFolder}/dev1/EmployeeAPI/EmployeeAPI.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dev3-build-ddd-Employee-PhysicalPerson",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/dev3/WebAPI/ddd-Employee-PhysicalPerson/ddd-Employee-PhysicalPerson.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }

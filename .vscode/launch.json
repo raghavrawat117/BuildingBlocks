@@ -53,6 +53,20 @@
             },
             "console": "integratedTerminal",
             "stopAtEntry": false
+        },
+        {
+            "name": "Dev3 API ddd-Employee-PhysicalPerson",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dev3-build-ddd-Employee-PhysicalPerson",
+            "program": "${workspaceFolder}/dev3/WebAPI/ddd-Employee-PhysicalPerson/bin/Debug/net10.0/ddd-Employee-PhysicalPerson.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/dev3/WebAPI/ddd-Employee-PhysicalPerson",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "integratedTerminal",
+            "stopAtEntry": false
         }
     ]
 }
