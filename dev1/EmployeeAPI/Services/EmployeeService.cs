@@ -59,4 +59,33 @@ public class EmployeeService : IEmployeeService
             Email = employee.Email
         };
     }
+
+    public async Task UpdateEmployeeAsync(
+    string id,
+    UpdateEmployeeDto dto)
+{
+    var employee =
+        await _repository.GetByIdAsync(id);
+
+    if (employee == null)
+        throw new Exception($"Employee {id} not found");
+
+    employee.Name = dto.Name;
+    employee.Department = dto.Department;
+    employee.Email = dto.Email;
+    employee.Salary = dto.Salary;
+
+    await _repository.UpdateAsync(id, employee);
+}
+
+public async Task DeleteEmployeeAsync(string id)
+{
+    var employee =
+        await _repository.GetByIdAsync(id);
+
+    if (employee == null)
+        throw new Exception($"Employee {id} not found");
+
+    await _repository.DeleteAsync(id);
+}
 }

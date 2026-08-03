@@ -8,4 +8,8 @@ public interface IEmployeeService
     Task<EmployeeResponseDto?> GetEmployeeByIdAsync(string id);
 
     Task CreateEmployeeAsync(CreateEmployeeDto dto);
+
+    Task UpdateEmployeeAsync(string id, UpdateEmployeeDto dto);
+
+    Task DeleteEmployeeAsync(string id);
 }

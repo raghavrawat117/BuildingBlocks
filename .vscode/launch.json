@@ -39,6 +39,20 @@
             },
             "console": "integratedTerminal",
             "stopAtEntry": false
+        },
+        {
+            "name": ".NET Debug EmployeeAPI",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-employeeapi",
+            "program": "${workspaceFolder}/dev1/EmployeeAPI/bin/Debug/net10.0/EmployeeAPI.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/dev1/EmployeeAPI",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "integratedTerminal",
+            "stopAtEntry": false
         }
     ]
 }

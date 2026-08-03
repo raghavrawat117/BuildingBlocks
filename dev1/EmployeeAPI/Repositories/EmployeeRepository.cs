@@ -37,4 +37,17 @@ public class EmployeeRepository : IEmployeeRepository
     {
         await _collection.InsertOneAsync(employee);
     }
+
+    public async Task UpdateAsync(string id, Employee employee)
+{
+        await _collection.ReplaceOneAsync(
+        x => x.Id == id,
+        employee);
+}
+
+    public async Task DeleteAsync(string id)
+{
+        await _collection.DeleteOneAsync(
+        x => x.Id == id);
+}
 }

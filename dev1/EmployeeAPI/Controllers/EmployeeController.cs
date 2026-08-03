@@ -43,4 +43,22 @@ public class EmployeeController : ControllerBase
 
         return Created();
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(
+    string id,
+    [FromBody] UpdateEmployeeDto dto)
+    {
+        await _employeeService.UpdateEmployeeAsync(id, dto);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        await _employeeService.DeleteEmployeeAsync(id);
+
+        return NoContent();
+    }
 }

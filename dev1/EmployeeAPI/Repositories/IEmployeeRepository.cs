@@ -7,4 +7,8 @@ public interface IEmployeeRepository
     Task<Employee?> GetByIdAsync(string id);
 
     Task CreateAsync(Employee employee);
+
+    Task UpdateAsync(string id, Employee employee);
+    
+    Task DeleteAsync(string id);
 }

@@ -1,5 +1,8 @@
 using EmployeeAPI.Services;
 using EmployeeAPI.Models;
+using FluentValidation;
+using EmployeeAPI.Validators;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHealthChecks();
+
+//register validator
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateEmployeeValidator>();
 
 // Dependency Injection
 builder.Services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
