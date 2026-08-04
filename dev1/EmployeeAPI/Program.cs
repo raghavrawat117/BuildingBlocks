@@ -10,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<EmployeeDatabaseSettings>(
 builder.Configuration.GetSection("EmployeeDatabase"));
 
+//Ably configuration
+builder.Services.Configure<AblySettings>(
+builder.Configuration.GetSection("AblySettings")    
+);
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -25,6 +30,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateEmployeeValidator>();
 // Dependency Injection
 builder.Services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddSingleton<IEventPublisher,AblyEventPublisher>();
 
 var app = builder.Build();
 

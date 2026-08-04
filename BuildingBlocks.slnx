@@ -11,4 +11,8 @@
     <Project Path="dev3/WebAPI/LearnersApi/LearnersApi.csproj" />
     <Project Path="dev3/WebAPI/LearningJwt/Just-GettingStarted-Jwt-Api/Just-GettingStarted-Jwt-Api.csproj" />
   </Folder>
+  <Folder Name="/dev1/" />
+  <Folder Name="/dev1/EmployeeAPI/">
+    <Project Path="dev1/EmployeeAPI/EmployeeAPI.csproj" />
+  </Folder>
 </Solution>

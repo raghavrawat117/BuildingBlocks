@@ -5,11 +5,14 @@ namespace EmployeeAPI.Services;
 public class EmployeeService : IEmployeeService
 {
     private readonly IEmployeeRepository _repository;
+    private readonly IEventPublisher _eventPublisher;
 
     public EmployeeService(
-        IEmployeeRepository repository)
+        IEmployeeRepository repository,
+        IEventPublisher eventPublisher)
     {
         _repository = repository;
+        _eventPublisher = eventPublisher;
     }
 
     public async Task<List<EmployeeResponseDto>>
@@ -40,6 +43,8 @@ public class EmployeeService : IEmployeeService
         };
 
         await _repository.CreateAsync(employee);
+
+        await _eventPublisher.PublishCreatedEmployeeAsync(employee);
     }
 
     public async Task<EmployeeResponseDto?>
