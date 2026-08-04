@@ -37,4 +37,19 @@ public class PhysicalPersonRedisRepository : IPhysicalPersonRepository
             return false;
         }
     }
+
+    public async Task<PhysicalPerson?> GetPhysicalPersonAsync(int physicalPersonId)
+    {
+        try
+        {
+            string key = $"physicalperson:{physicalPersonId}";
+            PhysicalPerson? physicalPerson = _redisRepository.GetJson<PhysicalPerson>(key);
+            return physicalPerson;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while retrieving physical person from Redis");
+            return null;
+        }
+    }
 }

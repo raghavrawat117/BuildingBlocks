@@ -8,7 +8,7 @@ namespace ddd_Employee_PhysicalPerson.Controllers;
 public class EmployeeController : ControllerBase
 {
     private readonly ILogger<EmployeeController> _logger;
-     private readonly IEmployeeService _employeeService;
+    private readonly IEmployeeService _employeeService;
     public EmployeeController(
          ILogger<EmployeeController> logger,
          IEmployeeService employeeService
@@ -21,12 +21,12 @@ public class EmployeeController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeRequest createEmployeeRequest)
     {
-       try
+        try
         {
             _logger.LogInformation("Create Request for Employee received");
-            int employeeId = await _employeeService.CreateEmployeeAsync(createEmployeeRequest);
+            CreateEmployeeResponse response = await _employeeService.CreateEmployeeAsync(createEmployeeRequest);
 
-            return Ok(CreateEmployeeResponse.AcknowledgementMessage(employeeId));
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -38,12 +38,12 @@ public class EmployeeController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetEmployee([FromQuery] GetEmployeeRequest getEmployeeRequest)
     {
-       try
+        try
         {
             _logger.LogInformation("Get Request for Employee received");
-            GetEmployeeResponse getEmployeeResponse = await _employeeService.GetEmployeeAsync(getEmployeeRequest);
+            GetEmployeeResponse response = await _employeeService.GetEmployeeAsync(getEmployeeRequest);
 
-            return Ok(getEmployeeResponse);
+            return Ok(response);
         }
         catch (Exception ex)
         {

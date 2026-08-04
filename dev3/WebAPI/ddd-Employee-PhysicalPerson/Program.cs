@@ -3,6 +3,7 @@ using ddd_Employee_PhysicalPerson.Application;
 using ddd_Employee_PhysicalPerson.Infra;
 using ddd_Employee_PhysicalPerson.Domain;
 using StackExchange.Redis;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,10 @@ builder.Services.AddScoped<IPhysicalPersonService, PhysicalPersonService>();
 builder.Services.AddScoped<IRedisRepository, RedisRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRedisRepository>();
 builder.Services.AddScoped<IPhysicalPersonRepository, PhysicalPersonRedisRepository>();
+
+// // Validation services
+builder.Services.AddScoped<IValidator<CreateEmployeeRequest>,CreateEmployeeRequestValidator>();
+builder.Services.AddScoped<IValidator<CreatePhysicalPersonRequest>,CreatePhysicalPersonRequestValidator>();
 
 var app = builder.Build();
 

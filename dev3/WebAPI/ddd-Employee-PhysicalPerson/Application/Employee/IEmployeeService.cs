@@ -4,6 +4,6 @@ namespace ddd_Employee_PhysicalPerson.Application;
 
 public interface IEmployeeService
 {
-    Task<int> CreateEmployeeAsync(CreateEmployeeRequest createEmployeeRequest);
+    Task<CreateEmployeeResponse> CreateEmployeeAsync(CreateEmployeeRequest createEmployeeRequest);
     Task<GetEmployeeResponse> GetEmployeeAsync(GetEmployeeRequest getEmployeeRequest);
 }
