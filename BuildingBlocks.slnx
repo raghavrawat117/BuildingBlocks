@@ -11,4 +11,7 @@
     <Project Path="dev3/WebAPI/LearnersApi/LearnersApi.csproj" />
     <Project Path="dev3/WebAPI/LearningJwt/Just-GettingStarted-Jwt-Api/Just-GettingStarted-Jwt-Api.csproj" />
   </Folder>
+  <Folder Name="/dev8/Redis/">
+    <Project Path="dev8/Redis/RedisConsoleAppv1/RedisConsoleAppv1.csproj" />
+  </Folder>
 </Solution>
