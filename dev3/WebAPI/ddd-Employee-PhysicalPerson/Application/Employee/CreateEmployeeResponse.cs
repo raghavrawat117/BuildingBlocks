@@ -1,6 +1,6 @@
-namespace ddd_Employee_PhysicalPerson.Controllers;
+namespace ddd_Employee_PhysicalPerson.Application;
 
-public class CreateEmployeeResponseDTO
+public class CreateEmployeeResponse
 {
     public static string AcknowledgementMessage(int employeeId) => $"Employee {employeeId} created successfully";
 }

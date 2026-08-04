@@ -1,6 +1,6 @@
-namespace ddd_Employee_PhysicalPerson.Controllers;
+namespace ddd_Employee_PhysicalPerson.Application;
 
-public class CreatePhysicalPersonDTO
+public class CreatePhysicalPersonRequest
 {
     public int PhysicalPersonId { get; set; }
     public string Name { get; set; } = string.Empty;

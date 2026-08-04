@@ -8,6 +8,7 @@
         "grade": 3,
         "experience": 4,
         "phoneNumber": 4085555555,
+        "salary": 75000,
         "workEmail": "anibrata.saha@laminar.com"
     },
     {
@@ -19,6 +20,7 @@
         "grade": 1,
         "experience": 5,
         "phoneNumber": 4081111111,
+        "salary": 70000,
         "workEmail": "raghav.rawat@laminar.com"
     },
     {
@@ -30,6 +32,7 @@
         "grade": 2,
         "experience": 2,
         "phoneNumber": 4082222222,
+        "salary": 65000,
         "workEmail": "devdutt.rai@laminar.com"
     },
     {
@@ -41,6 +44,7 @@
         "grade": 3,
         "experience": 1,
         "phoneNumber": 4083333333,
+        "salary": 75000,
         "workEmail": "abhinav.reddy@laminar.com"
     }
 ]

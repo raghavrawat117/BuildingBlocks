@@ -1,4 +1,3 @@
-using ddd_Employee_PhysicalPerson.Controllers;
 using ddd_Employee_PhysicalPerson.Domain;
 
 namespace ddd_Employee_PhysicalPerson.Application;
@@ -16,20 +15,20 @@ public class PhysicalPersonService : IPhysicalPersonService
         _physicalPersonRepository = physicalPersonRepository;
     }
 
-    public async Task<int> CreatePhysicalPersonAsync(CreatePhysicalPersonDTO createPhysicalPersonDTO)
+    public async Task<int> CreatePhysicalPersonAsync(CreatePhysicalPersonRequest createPhysicalPersonRequest)
     {
         try
         {
-            _logger.LogInformation($"Creating PhysicalPerson with ID: {createPhysicalPersonDTO.PhysicalPersonId}");
+            _logger.LogInformation($"Creating PhysicalPerson with ID: {createPhysicalPersonRequest.PhysicalPersonId}");
 
             PhysicalPerson physicalPerson = new PhysicalPerson
             {
-                PhysicalPersonId = createPhysicalPersonDTO.PhysicalPersonId,
-                Name = createPhysicalPersonDTO.Name,
-                Address = createPhysicalPersonDTO.Address,
-                DateOfBirth = createPhysicalPersonDTO.DateOfBirth,
-                PhoneNumber = createPhysicalPersonDTO.PhoneNumber,
-                Ssno = createPhysicalPersonDTO.Ssno
+                PhysicalPersonId = createPhysicalPersonRequest.PhysicalPersonId,
+                Name = createPhysicalPersonRequest.Name,
+                Address = createPhysicalPersonRequest.Address,
+                DateOfBirth = createPhysicalPersonRequest.DateOfBirth,
+                PhoneNumber = createPhysicalPersonRequest.PhoneNumber,
+                Ssno = createPhysicalPersonRequest.Ssno
             };
 
             bool result = await _physicalPersonRepository.CreatePhysicalPersonAsync(physicalPerson);
@@ -39,7 +38,7 @@ public class PhysicalPersonService : IPhysicalPersonService
                 throw new Exception("Failed to create Physical Person");
             }
 
-            _logger.LogInformation($"Successfully created PhysicalPerson with ID: {createPhysicalPersonDTO.PhysicalPersonId}");
+            _logger.LogInformation($"Successfully created PhysicalPerson with ID: {createPhysicalPersonRequest.PhysicalPersonId}");
 
             return physicalPerson.PhysicalPersonId;
 

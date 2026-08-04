@@ -26,6 +26,9 @@ public class Employee
     [JsonPropertyName("phoneNumber")]
     public long PhoneNumber { get; set; }
 
+    [JsonPropertyName("salary")]
+    public int Salary { get; set; }
+
     [JsonPropertyName("workEmail")]
     public string WorkEmail { get; set; } = string.Empty;
 }

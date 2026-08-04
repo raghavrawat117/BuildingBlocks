@@ -19,18 +19,35 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeDTO createEmployeeDTO)
+    public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeRequest createEmployeeRequest)
     {
        try
         {
             _logger.LogInformation("Create Request for Employee received");
-            int employeeId = await _employeeService.CreateEmployeeAsync(createEmployeeDTO);
+            int employeeId = await _employeeService.CreateEmployeeAsync(createEmployeeRequest);
 
-            return Ok(CreateEmployeeResponseDTO.AcknowledgementMessage(employeeId));
+            return Ok(CreateEmployeeResponse.AcknowledgementMessage(employeeId));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error occurred while creating employee.");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetEmployee([FromQuery] GetEmployeeRequest getEmployeeRequest)
+    {
+       try
+        {
+            _logger.LogInformation("Get Request for Employee received");
+            GetEmployeeResponse getEmployeeResponse = await _employeeService.GetEmployeeAsync(getEmployeeRequest);
+
+            return Ok(getEmployeeResponse);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while retrieving employee.");
             return StatusCode(500, "Internal server error");
         }
     }

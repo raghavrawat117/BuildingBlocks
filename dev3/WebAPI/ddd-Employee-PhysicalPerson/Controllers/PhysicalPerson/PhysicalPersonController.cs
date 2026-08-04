@@ -19,14 +19,14 @@ public class PhysicalPersonController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreatePhysicalPerson([FromBody] CreatePhysicalPersonDTO createPhysicalPersonDTO)
+    public async Task<IActionResult> CreatePhysicalPerson([FromBody] CreatePhysicalPersonRequest createPhysicalPersonRequest)
     {
        try
         {
             _logger.LogInformation("Create Request for PhysicalPerson received");
-            int physicalPersonId = await _physicalPersonService.CreatePhysicalPersonAsync(createPhysicalPersonDTO);
+            int physicalPersonId = await _physicalPersonService.CreatePhysicalPersonAsync(createPhysicalPersonRequest);
 
-            return Ok(CreatePhysicalPersonResponseDTO.AcknowledgementMessage(physicalPersonId));
+            return Ok(CreatePhysicalPersonResponse.AcknowledgementMessage(physicalPersonId));
         }
         catch (Exception ex)
         {

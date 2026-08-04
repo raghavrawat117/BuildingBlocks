@@ -37,4 +37,19 @@ public class EmployeeRedisRepository : IEmployeeRepository
             return false;
         }
     }
+
+    public async Task<Employee?> GetEmployeeAsync(int employeeId)
+    {
+        try
+        {
+            string key = $"employee:{employeeId}";
+            Employee? employee = _redisRepository.GetJson<Employee>(key);
+            return employee;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while retrieving employee from Redis");
+            return null;
+        }
+    }
 }

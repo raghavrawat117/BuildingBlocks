@@ -3,6 +3,7 @@ using NRedisStack;
 using NRedisStack.RedisStackCommands;
 using NRedisStack.Search;
 using Microsoft.Extensions.Options;
+using ddd_Employee_PhysicalPerson.Domain;
 
 
 namespace ddd_Employee_PhysicalPerson.Infra;
@@ -49,4 +50,23 @@ public class RedisRepository : IRedisRepository
             return false;
         }
     }
+
+    public T GetJson<T>(string key)
+    {
+        try
+        {
+            T result = _jsonCommands.Get<T>(key);
+
+            //var price = await jsonDb.GetAsync<double>("product:101", path: "$.price");
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while retrieving JSON from Redis");
+            return default;
+        }
+    }
+
+
 }

@@ -1,4 +1,3 @@
-using ddd_Employee_PhysicalPerson.Controllers;
 using ddd_Employee_PhysicalPerson.Domain;
 
 namespace ddd_Employee_PhysicalPerson.Application;
@@ -16,40 +15,53 @@ public class EmployeeService : IEmployeeService
         _employeeRepository = employeeRepository;
     }
 
-    public async Task<int> CreateEmployeeAsync(CreateEmployeeDTO createEmployeeDTO)
+    public async Task<int> CreateEmployeeAsync(CreateEmployeeRequest createEmployeeRequest)
     {
         try
         {
-            _logger.LogInformation($"Creating Employee with ID: {createEmployeeDTO.EmployeeId}");
+            _logger.LogInformation($"Creating Employee with ID: {createEmployeeRequest.EmployeeId}");
+            
+            bool result = await _employeeRepository.CreateEmployeeAsync(createEmployeeRequest.ToEmployee());
 
-            Employee employee = new Employee
-            {
-                EmployeeId = createEmployeeDTO.EmployeeId,
-                PhysicalPersonId = createEmployeeDTO.PhysicalPersonId,
-                FirstName = createEmployeeDTO.FirstName,
-                LastName = createEmployeeDTO.LastName,
-                Location = createEmployeeDTO.Location,
-                Grade = createEmployeeDTO.Grade,
-                Experience = createEmployeeDTO.Experience,
-                PhoneNumber = createEmployeeDTO.PhoneNumber,
-                WorkEmail = createEmployeeDTO.WorkEmail
-            };
-
-            bool result = await _employeeRepository.CreateEmployeeAsync(employee);
-
-            if ( !result )
+            if (!result)
             {
                 throw new Exception("Failed to create Employee");
             }
 
-            _logger.LogInformation($"Successfully created Employee with ID: {createEmployeeDTO.EmployeeId}");
+            _logger.LogInformation($"Successfully created Employee with ID: {createEmployeeRequest.EmployeeId}");
 
-            return employee.EmployeeId;
+            return createEmployeeRequest.EmployeeId;
 
         }
         catch (Exception ex)
         {
             _logger.LogError(ex.Message, "Error creating employee");
+            throw;
+        }
+    }
+
+    public async Task<GetEmployeeResponse> GetEmployeeAsync(GetEmployeeRequest getEmployeeRequest)
+    {
+        try
+        {
+            _logger.LogInformation($"Getting Employee with ID: {getEmployeeRequest.employeeId}");
+
+            Employee employee = await _employeeRepository.GetEmployeeAsync(getEmployeeRequest.employeeId);
+
+            if (employee == null)
+            {
+                throw new Exception("Employee not found");
+            }
+
+            _logger.LogInformation($"Successfully retrieved Employee with ID: {getEmployeeRequest.employeeId}");
+
+            GetEmployeeResponse getEmployeeResponse = employee.ToResponse();
+
+            return getEmployeeResponse;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, "Error retrieving employee");
             throw;
         }
     }
