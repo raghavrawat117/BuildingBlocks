@@ -1,6 +1,6 @@
-using EmployeeAPI.DTOs;
+using EmployeeAPI.Repositories;
 
-namespace EmployeeAPI.Services;
+namespace EmployeeAPI.Repositories;
 public interface IEventPublisher
 {
     Task PublishCreatedEmployeeAsync(object empData);

@@ -5,9 +5,11 @@ using MongoDB.Driver;
 public class EmployeeRepository : IEmployeeRepository
 {
     private readonly IMongoCollection<Employee> _collection;
+    private readonly ILogger<Employee> _logger;
 
     public EmployeeRepository(
-        IOptions<EmployeeDatabaseSettings> settings)
+        IOptions<EmployeeDatabaseSettings> settings,
+        ILogger<Employee> logger)
     {
         var client = new MongoClient(
             settings.Value.ConnectionString);
@@ -17,37 +19,84 @@ public class EmployeeRepository : IEmployeeRepository
 
         _collection = database.GetCollection<Employee>(
             settings.Value.EmployeeCollectionName);
+
+        _logger = logger;
     }
 
     public async Task<List<Employee>> GetAllAsync()
     {
-        return await _collection
-            .Find(_ => true)
-            .ToListAsync();
+        try
+        {
+            var listEmployee = await _collection
+                 .Find(_ => true)
+                 .ToListAsync();
+
+            return listEmployee;
+        }
+        catch (MongoException ex)
+        {
+            _logger.LogError(ex, "Error occured while getting the list of employees from MongoDB");
+            throw;
+        }
     }
 
     public async Task<Employee?> GetByIdAsync(string id)
     {
-        return await _collection
-            .Find(x => x.Id == id)
-            .FirstOrDefaultAsync();
+        try
+        {
+            var employee = await _collection
+                .Find(x => x.Id == id)
+                .FirstOrDefaultAsync();
+
+            return employee;
+        }
+        catch (MongoException ex)
+        {
+            _logger.LogError(ex, "Error occured while getting the data from MongoDB based on ID");
+            throw;
+        }
     }
 
     public async Task CreateAsync(Employee employee)
     {
-        await _collection.InsertOneAsync(employee);
+        try
+        {
+            await _collection.InsertOneAsync(employee);
+        }
+
+        catch (MongoException ex)
+        {
+            _logger.LogError(ex, "Error occured while creating employee with emailId {emailId}", employee.Email);
+            throw;
+        }
     }
 
     public async Task UpdateAsync(string id, Employee employee)
-{
-        await _collection.ReplaceOneAsync(
-        x => x.Id == id,
-        employee);
-}
+    {
+        try
+        {
+            await _collection.ReplaceOneAsync(
+            x => x.Id == id,
+            employee);
+        }
+        catch (MongoException ex)
+        {
+            _logger.LogError(ex, "Error occured while updating the employee");
+            throw;
+        }
+    }
 
     public async Task DeleteAsync(string id)
-{
-        await _collection.DeleteOneAsync(
-        x => x.Id == id);
-}
+    {
+        try
+        {
+            await _collection.DeleteOneAsync(
+            x => x.Id == id);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occured while deleting the employee with EmployeeId: {empId}", id);
+            throw;
+        }
+    }
 }

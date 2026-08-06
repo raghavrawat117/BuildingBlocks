@@ -3,6 +3,8 @@ using EmployeeAPI.Models;
 using FluentValidation;
 using EmployeeAPI.Validators;
 using FluentValidation.AspNetCore;
+using EmployeeAPI.Middleware;
+using EmployeeAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +44,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 

@@ -1,7 +1,10 @@
 using EmployeeAPI.DTOs;
+using EmployeeAPI.Exceptions;
 using EmployeeAPI.Models;
+using EmployeeAPI.Repositories;
 
 namespace EmployeeAPI.Services;
+
 public class EmployeeService : IEmployeeService
 {
     private readonly IEmployeeRepository _repository;
@@ -51,10 +54,7 @@ public class EmployeeService : IEmployeeService
         GetEmployeeByIdAsync(string id)
     {
         var employee =
-            await _repository.GetByIdAsync(id);
-
-        if (employee == null)
-            return null;
+            await _repository.GetByIdAsync(id) ?? throw new NotFoundException($"Employee {id} not found");
 
         return new EmployeeResponseDto
         {
@@ -68,29 +68,21 @@ public class EmployeeService : IEmployeeService
     public async Task UpdateEmployeeAsync(
     string id,
     UpdateEmployeeDto dto)
-{
-    var employee =
-        await _repository.GetByIdAsync(id);
+    {
+        var employee =
+            await _repository.GetByIdAsync(id) ?? throw new NotFoundException($"Employee {id} not found");
 
-    if (employee == null)
-        throw new Exception($"Employee {id} not found");
+        employee.Name = dto.Name;
+        employee.Department = dto.Department;
+        employee.Email = dto.Email;
+        employee.Salary = dto.Salary;
 
-    employee.Name = dto.Name;
-    employee.Department = dto.Department;
-    employee.Email = dto.Email;
-    employee.Salary = dto.Salary;
+        await _repository.UpdateAsync(id, employee);
+    }
 
-    await _repository.UpdateAsync(id, employee);
-}
-
-public async Task DeleteEmployeeAsync(string id)
-{
-    var employee =
-        await _repository.GetByIdAsync(id);
-
-    if (employee == null)
-        throw new Exception($"Employee {id} not found");
-
-    await _repository.DeleteAsync(id);
-}
+    public async Task DeleteEmployeeAsync(string id)
+    {
+        _ = await _repository.GetByIdAsync(id) ?? throw new NotFoundException($"Employee {id} not found");
+        await _repository.DeleteAsync(id);
+    }
 }
