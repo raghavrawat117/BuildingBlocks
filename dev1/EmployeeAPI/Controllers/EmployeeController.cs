@@ -1,11 +1,12 @@
 using EmployeeAPI.DTOs;
+using EmployeeAPI.Exceptions;
 using EmployeeAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeAPI.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v1/[controller]/[action]")]
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
@@ -27,12 +28,19 @@ public class EmployeeController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<EmployeeResponseDto>> GetById(string id)
     {
-        var employee = await _employeeService.GetEmployeeByIdAsync(id);
+        try
+        {
+            var employee = await _employeeService.GetEmployeeByIdAsync(id);
 
-        if (employee == null)
-            return NotFound();
+            if (employee == null)
+                return NotFound();
 
-        return Ok(employee);
+            return Ok(employee);
+        }
+        catch (NotFoundException notfoundException)
+        {
+            return NotFound(notfoundException.Message);
+        }
     }
 
     [HttpPost]
