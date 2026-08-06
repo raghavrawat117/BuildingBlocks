@@ -1,4 +1,6 @@
 using ddd_Employee_PhysicalPerson.Application;
+using ddd_Employee_PhysicalPerson.Application.PhysicalPerson.Contracts;
+using ddd_Employee_PhysicalPerson.Application.PhysicalPerson.Validations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ddd_Employee_PhysicalPerson.Controllers;
@@ -28,6 +30,11 @@ public class PhysicalPersonController : ControllerBase
 
             _logger.LogInformation(response.AcknowledgementMessage);
             return Ok(response);
+        }
+        catch (CreatePhysicalPersonValidationException ex)
+        {
+            _logger.LogError($"Validation has failed with erros:{string.Join(" , ", ex.ValidationErrors)}");
+            return BadRequest(new CreatePhysicalPersonResponse(ex));
         }
         catch (Exception ex)
         {

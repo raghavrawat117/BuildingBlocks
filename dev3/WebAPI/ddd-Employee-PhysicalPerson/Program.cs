@@ -1,9 +1,12 @@
 using Scalar.AspNetCore;
 using ddd_Employee_PhysicalPerson.Application;
 using ddd_Employee_PhysicalPerson.Infra;
-using ddd_Employee_PhysicalPerson.Domain;
 using StackExchange.Redis;
 using FluentValidation;
+using ddd_Employee_PhysicalPerson.Application.Employee.Contracts;
+using ddd_Employee_PhysicalPerson.Application.PhysicalPerson.Contracts;
+using ddd_Employee_PhysicalPerson.Application.PhysicalPerson.Validations;
+using ddd_Employee_PhysicalPerson.Application.Employee.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,8 +47,8 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IPhysicalPersonService, PhysicalPersonService>();
 
 builder.Services.AddScoped<IRedisRepository, RedisRepository>();
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRedisRepository>();
-builder.Services.AddScoped<IPhysicalPersonRepository, PhysicalPersonRedisRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IPhysicalPersonRepository, PhysicalPersonRepository>();
 
 // // Validation services
 builder.Services.AddScoped<IValidator<CreateEmployeeRequest>,CreateEmployeeRequestValidator>();

@@ -1,4 +1,6 @@
 using ddd_Employee_PhysicalPerson.Application;
+using ddd_Employee_PhysicalPerson.Application.Employee.Contracts;
+using ddd_Employee_PhysicalPerson.Application.Employee.Validations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ddd_Employee_PhysicalPerson.Controllers;
@@ -27,6 +29,11 @@ public class EmployeeController : ControllerBase
             CreateEmployeeResponse response = await _employeeService.CreateEmployeeAsync(createEmployeeRequest);
 
             return Ok(response);
+        }
+        catch (CreateEmployeeValidationException ex)
+        {
+            _logger.LogError($"Validation has failed with erros:{string.Join(" , ", ex.ValidationErrors)}");
+            return BadRequest(new CreateEmployeeResponse(ex));
         }
         catch (Exception ex)
         {

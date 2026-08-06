@@ -1,13 +1,18 @@
-using ddd_Employee_PhysicalPerson.Domain;
+using ddd_Employee_PhysicalPerson.Application.Employee.Contracts;
+// This still collides since .Employee is being used
+//using ddd_Employee_PhysicalPerson.Domain.Entities;
+// better to alias it here
+using EmployeeEntity = ddd_Employee_PhysicalPerson.Domain.Entities.Employee;
 
-namespace ddd_Employee_PhysicalPerson.Application;
+
+namespace ddd_Employee_PhysicalPerson.Application.Employee;
 
 public static class EmployeeMappings
 {
-    public static Employee ToEmployee(
+    public static EmployeeEntity ToEmployee(
         this CreateEmployeeRequest request)
     {
-        return new Employee
+        return new EmployeeEntity
         {
             FirstName = request.FirstName,
             PhysicalPersonId = request.PhysicalPersonId,
@@ -22,7 +27,7 @@ public static class EmployeeMappings
     }
 
     public static GetEmployeeResponse ToResponse(
-        this Employee employee)
+        this EmployeeEntity employee)
     {
         return new GetEmployeeResponse
         {

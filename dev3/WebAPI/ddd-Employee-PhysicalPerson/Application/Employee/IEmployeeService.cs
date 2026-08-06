@@ -1,4 +1,4 @@
-using ddd_Employee_PhysicalPerson.Controllers;
+using ddd_Employee_PhysicalPerson.Application.Employee.Contracts;
 
 namespace ddd_Employee_PhysicalPerson.Application;
 

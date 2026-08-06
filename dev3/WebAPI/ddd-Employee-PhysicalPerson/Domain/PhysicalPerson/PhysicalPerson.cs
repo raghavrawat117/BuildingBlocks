@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-namespace ddd_Employee_PhysicalPerson.Domain;
+namespace ddd_Employee_PhysicalPerson.Domain.Entities;
 
 public class PhysicalPerson
 {

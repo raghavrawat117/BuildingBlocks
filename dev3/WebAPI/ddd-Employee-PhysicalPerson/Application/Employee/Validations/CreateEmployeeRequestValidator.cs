@@ -1,6 +1,7 @@
-using ddd_Employee_PhysicalPerson.Application;
+using ddd_Employee_PhysicalPerson.Application.Employee.Contracts;
 using FluentValidation;
 
+namespace ddd_Employee_PhysicalPerson.Application.Employee.Validations;
 public class CreateEmployeeRequestValidator
     : AbstractValidator<CreateEmployeeRequest>
 {

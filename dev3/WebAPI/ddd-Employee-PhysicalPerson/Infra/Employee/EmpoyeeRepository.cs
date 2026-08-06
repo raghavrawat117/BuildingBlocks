@@ -5,17 +5,18 @@ using NRedisStack.Search;
 using Microsoft.Extensions.Options;
 using ddd_Employee_PhysicalPerson.Application;
 using ddd_Employee_PhysicalPerson.Domain;
+using EmployeeEntity = ddd_Employee_PhysicalPerson.Domain.Entities.Employee;
 
 
 namespace ddd_Employee_PhysicalPerson.Infra;
 
-public class EmployeeRedisRepository : IEmployeeRepository
+public class EmployeeRepository : IEmployeeRepository
 {
-    private readonly ILogger<EmployeeRedisRepository> _logger;
+    private readonly ILogger<EmployeeRepository> _logger;
     private readonly IRedisRepository _redisRepository;
 
-    public EmployeeRedisRepository(
-        ILogger<EmployeeRedisRepository> logger,
+    public EmployeeRepository(
+        ILogger<EmployeeRepository> logger,
         IRedisRepository redisRepository
         )
     {
@@ -23,7 +24,7 @@ public class EmployeeRedisRepository : IEmployeeRepository
         _logger = logger;
     }
     
-    public async Task<bool> CreateEmployeeAsync(Employee employee)
+    public async Task<bool> CreateEmployeeAsync(EmployeeEntity employee)
     {
         try
         {
@@ -38,12 +39,12 @@ public class EmployeeRedisRepository : IEmployeeRepository
         }
     }
 
-    public async Task<Employee?> GetEmployeeAsync(int employeeId)
+    public async Task<EmployeeEntity?> GetEmployeeAsync(int employeeId)
     {
         try
         {
             string key = $"employee:{employeeId}";
-            Employee? employee = _redisRepository.GetJson<Employee>(key);
+            EmployeeEntity? employee = _redisRepository.GetJson<EmployeeEntity>(key);
             return employee;
         }
         catch (Exception ex)

@@ -1,4 +1,7 @@
-using ddd_Employee_PhysicalPerson.Domain;
+using ddd_Employee_PhysicalPerson.Application.Employee;
+using ddd_Employee_PhysicalPerson.Application.Employee.Contracts;
+using ddd_Employee_PhysicalPerson.Application.Employee.Validations;
+using EmployeeEntity = ddd_Employee_PhysicalPerson.Domain.Entities.Employee;
 using FluentValidation;
 
 namespace ddd_Employee_PhysicalPerson.Application;
@@ -21,53 +24,34 @@ public class EmployeeService : IEmployeeService
 
     public async Task<CreateEmployeeResponse> CreateEmployeeAsync(CreateEmployeeRequest createEmployeeRequest)
     {
-        try
-        {
-            _logger.LogInformation($"Creating Employee with ID: {createEmployeeRequest.EmployeeId}");
 
-            FluentValidation.Results.ValidationResult validationResult = await _validator.ValidateAsync(createEmployeeRequest);
+        _logger.LogInformation($"Creating Employee with ID: {createEmployeeRequest.EmployeeId}");
 
-            if (!validationResult.IsValid) { throw new ValidationException(validationResult.Errors.Select(x => x.ErrorMessage)); }
+        FluentValidation.Results.ValidationResult validationResult = await _validator.ValidateAsync(createEmployeeRequest);
 
-            bool result = await _employeeRepository.CreateEmployeeAsync(createEmployeeRequest.ToEmployee());
+        //if (!validationResult.IsValid) { throw new ValidationException(validationResult.Errors.Select(x => x.ErrorMessage)); }
+        if (!validationResult.IsValid) { throw new CreateEmployeeValidationException(createEmployeeRequest.EmployeeId, validationResult.Errors.Select(x => x.ErrorMessage)); }
 
-            if (!result) { throw new Exception("Failed to create Employee"); }
+        bool result = await _employeeRepository.CreateEmployeeAsync(createEmployeeRequest.ToEmployee());
 
-            _logger.LogInformation($"Successfully created Employee with ID: {createEmployeeRequest.EmployeeId}");
+        if (!result) { throw new Exception("Failed to create Employee"); }
 
-            return new CreateEmployeeResponse(createEmployeeRequest.EmployeeId);
+        _logger.LogInformation($"Successfully created Employee with ID: {createEmployeeRequest.EmployeeId}");
 
-        }
-        catch (ValidationException ex)
-        {
-            _logger.LogError($"Validation has failed with erros:{string.Join(" , ", ex.Errors)}");
-            return new CreateEmployeeResponse(ex);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message, "Error creating employee");
-            throw;
-        }
+        return new CreateEmployeeResponse(createEmployeeRequest.EmployeeId);
+
     }
 
     public async Task<GetEmployeeResponse> GetEmployeeAsync(GetEmployeeRequest getEmployeeRequest)
     {
-        try
-        {
-            _logger.LogInformation($"Getting Employee with ID: {getEmployeeRequest.employeeId}");
+        _logger.LogInformation($"Getting Employee with ID: {getEmployeeRequest.employeeId}");
 
-            Employee employee = await _employeeRepository.GetEmployeeAsync(getEmployeeRequest.employeeId) ?? throw new Exception("Employee not found");
+        EmployeeEntity employee = await _employeeRepository.GetEmployeeAsync(getEmployeeRequest.employeeId) ?? throw new Exception("Employee not found");
 
-            _logger.LogInformation($"Successfully retrieved Employee with ID: {getEmployeeRequest.employeeId}");
+        _logger.LogInformation($"Successfully retrieved Employee with ID: {getEmployeeRequest.employeeId}");
 
-            GetEmployeeResponse getEmployeeResponse = employee.ToResponse();
+        GetEmployeeResponse getEmployeeResponse = employee.ToResponse();
 
-            return getEmployeeResponse;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message, "Error retrieving employee");
-            throw;
-        }
+        return getEmployeeResponse;
     }
 }

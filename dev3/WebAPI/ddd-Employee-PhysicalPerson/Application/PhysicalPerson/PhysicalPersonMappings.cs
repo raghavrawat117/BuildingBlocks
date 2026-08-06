@@ -1,13 +1,14 @@
-using ddd_Employee_PhysicalPerson.Domain;
+using ddd_Employee_PhysicalPerson.Application.PhysicalPerson.Contracts;
+using PhysicalPersonEntity = ddd_Employee_PhysicalPerson.Domain.Entities.PhysicalPerson;
 
 namespace ddd_Employee_PhysicalPerson.Application;
 
 public static class PhysicalPersonMappings
 {
-    public static PhysicalPerson ToPhysicalPerson(
+    public static PhysicalPersonEntity ToPhysicalPerson(
         this CreatePhysicalPersonRequest request)
     {
-        return new PhysicalPerson
+        return new PhysicalPersonEntity
         {
             Name = request.Name,
             DateOfBirth = request.DateOfBirth,
@@ -18,7 +19,7 @@ public static class PhysicalPersonMappings
     }
 
     public static GetPhysicalPersonResponse ToGetPhysicalPersonResponse(
-        this PhysicalPerson physicalPerson)
+        this PhysicalPersonEntity physicalPerson)
     {
         return new GetPhysicalPersonResponse
         {

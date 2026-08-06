@@ -1,4 +1,4 @@
-namespace ddd_Employee_PhysicalPerson.Application;
+namespace ddd_Employee_PhysicalPerson.Application.Employee.Contracts;
 
 public class GetEmployeeRequest
 {
