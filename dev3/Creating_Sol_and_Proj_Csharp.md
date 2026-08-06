@@ -21,3 +21,6 @@
 [Template for namespaced code](https://www.geeksforgeeks.org/c-sharp/c-sharp-hello-world/) 
 
 [How to Debug](https://www.youtube.com/watch?v=XKCzdFOxOwA)
+
+> Update Package
+- `dotnet package update`
