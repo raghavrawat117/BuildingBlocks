@@ -1,5 +1,5 @@
 using ddd_Employee_PhysicalPerson.Application.PhysicalPerson.Contracts;
-using PhysicalPersonEntity = ddd_Employee_PhysicalPerson.Domain.Entities.PhysicalPerson;
+using ddd_Employee_PhysicalPerson.Domain.Entities;
 
 namespace ddd_Employee_PhysicalPerson.Application;
 
@@ -10,6 +10,7 @@ public static class PhysicalPersonMappings
     {
         return new PhysicalPersonEntity
         {
+            PhysicalPersonId = request.PhysicalPersonId,
             Name = request.Name,
             DateOfBirth = request.DateOfBirth,
             Address = request.Address,

@@ -1,8 +1,12 @@
 using ddd_Employee_PhysicalPerson.Application.Employee.Contracts;
-// This still collides since .Employee is being used
-//using ddd_Employee_PhysicalPerson.Domain.Entities;
+using ddd_Employee_PhysicalPerson.Domain.Entities;
+// This still collides since .Employee is being used in
+// using ddd_Employee_PhysicalPerson.Domain.Entities;
+// causing ddd_Employee_PhysicalPerson.Domain.Entities.Employee
+// to have ambiguous reference
 // better to alias it here
-using EmployeeEntity = ddd_Employee_PhysicalPerson.Domain.Entities.Employee;
+// using EmployeeEntity = ddd_Employee_PhysicalPerson.Domain.Entities.Employee;
+// Later : I changed name to EmployeeEntity, since everywhere I will have to do the same
 
 
 namespace ddd_Employee_PhysicalPerson.Application.Employee;
@@ -14,6 +18,7 @@ public static class EmployeeMappings
     {
         return new EmployeeEntity
         {
+            EmployeeId = request.EmployeeId,
             FirstName = request.FirstName,
             PhysicalPersonId = request.PhysicalPersonId,
             LastName = request.LastName,

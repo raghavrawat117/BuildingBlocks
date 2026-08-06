@@ -5,7 +5,7 @@ using NRedisStack.Search;
 using Microsoft.Extensions.Options;
 using ddd_Employee_PhysicalPerson.Application;
 using ddd_Employee_PhysicalPerson.Domain;
-using EmployeeEntity = ddd_Employee_PhysicalPerson.Domain.Entities.Employee;
+using ddd_Employee_PhysicalPerson.Domain.Entities;
 
 
 namespace ddd_Employee_PhysicalPerson.Infra;
@@ -51,6 +51,21 @@ public class EmployeeRepository : IEmployeeRepository
         {
             _logger.LogError(ex, "Error occurred while retrieving employee from Redis");
             return null;
+        }
+    }
+
+    public async Task<bool> StoreCanonical(CanonicalEnvelope<EmployeeEntity> employee)
+    {
+        try
+        {
+            string key = $"canonical:employee:{employee.BusinessKey}";
+            bool result = _redisRepository.SetJson(key, employee);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while storing employee in Redis");
+            return false;
         }
     }
 }

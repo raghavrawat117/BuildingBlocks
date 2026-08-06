@@ -6,5 +6,6 @@ namespace ddd_Employee_PhysicalPerson.Application;
 public interface IPhysicalPersonService
 {
     Task<CreatePhysicalPersonResponse> CreatePhysicalPersonAsync(CreatePhysicalPersonRequest createPhysicalPersonRequest);
+    Task<CreatePhysicalPersonResponse> CreatePhysicalPersonAsyncV2(CreatePhysicalPersonRequest createPhysicalPersonRequest);
     Task<GetPhysicalPersonResponse> GetPhysicalPersonAsync(GetPhysicalPersonRequest getPhysicalPersonRequest);
 }

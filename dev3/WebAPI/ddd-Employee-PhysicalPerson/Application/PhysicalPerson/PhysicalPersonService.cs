@@ -1,6 +1,6 @@
 using ddd_Employee_PhysicalPerson.Application.PhysicalPerson.Contracts;
 using ddd_Employee_PhysicalPerson.Application.PhysicalPerson.Validations;
-using PhysicalPersonEntity = ddd_Employee_PhysicalPerson.Domain.Entities.PhysicalPerson;
+using ddd_Employee_PhysicalPerson.Domain.Entities;
 using FluentValidation;
 
 namespace ddd_Employee_PhysicalPerson.Application;
@@ -25,18 +25,20 @@ public class PhysicalPersonService : IPhysicalPersonService
     {
         _logger.LogInformation($"Creating PhysicalPerson with ID: {createPhysicalPersonRequest.PhysicalPersonId}");
 
+        // // 1.Request Validation
         FluentValidation.Results.ValidationResult validationResult = await _validator.ValidateAsync(createPhysicalPersonRequest);
 
         // if (!validationResult.IsValid) { throw new ValidationException(validationResult.Errors.Select(x => x.ErrorMessage)); }
         if (!validationResult.IsValid) { throw new CreatePhysicalPersonValidationException(createPhysicalPersonRequest.PhysicalPersonId , validationResult.Errors.Select(x => x.ErrorMessage)); }
 
+        // // 2.Operation
         bool result = await _physicalPersonRepository.CreatePhysicalPersonAsync(createPhysicalPersonRequest.ToPhysicalPerson());
 
         if (!result) { throw new Exception("Failed to create Physical Person"); }
 
         _logger.LogInformation($"Successfully created PhysicalPerson with ID: {createPhysicalPersonRequest.PhysicalPersonId}");
 
-        return new CreatePhysicalPersonResponse(createPhysicalPersonRequest.PhysicalPersonId);
+        return new CreatePhysicalPersonResponse($"Successfully created PhysicalPerson with ID: {createPhysicalPersonRequest.PhysicalPersonId}");
 
     }
 
@@ -59,5 +61,30 @@ public class PhysicalPersonService : IPhysicalPersonService
             _logger.LogError(ex.Message, "Error retrieving physical person");
             throw;
         }
+    }
+
+    public async Task<CreatePhysicalPersonResponse> CreatePhysicalPersonAsyncV2(CreatePhysicalPersonRequest createPhysicalPersonRequest)
+    {
+        _logger.LogInformation($"Creating PhysicalPerson with ID: {createPhysicalPersonRequest.PhysicalPersonId}");
+
+        // // 1. Request Validation
+        FluentValidation.Results.ValidationResult validationResult = await _validator.ValidateAsync(createPhysicalPersonRequest);
+
+        if (!validationResult.IsValid) { throw new CreatePhysicalPersonValidationException(createPhysicalPersonRequest.PhysicalPersonId , validationResult.Errors.Select(x => x.ErrorMessage)); }
+
+        // // 2. Request to Domain
+        PhysicalPersonEntity physicalPerson = createPhysicalPersonRequest.ToPhysicalPerson();
+
+        // // 3. Transform to canonical by applying envelope
+        CanonicalEnvelope<PhysicalPersonEntity> physicalPersonCanonical = CanonicalEnvelopeFactory.Create(physicalPerson , "laminar" , 1);
+        
+        bool result = await _physicalPersonRepository.StoreCanonical(physicalPersonCanonical);
+        
+        if (!result) { throw new Exception("Failed to process Physical Person"); }
+
+        _logger.LogInformation($"Successfully stored PhysicalPerson with ID: {createPhysicalPersonRequest.PhysicalPersonId}");
+
+        return new CreatePhysicalPersonResponse($"Successfully stored PhysicalPerson with ID: {createPhysicalPersonRequest.PhysicalPersonId}");
+
     }
 }

@@ -68,5 +68,18 @@ public class RedisRepository : IRedisRepository
         }
     }
 
+    public async Task<bool> KeyExistsAsync(string key)
+    {
+        try
+        {
+            bool result = await _db.KeyExistsAsync(key);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while setting JSON in Redis");
+            return false;
+        }
+    }
 
 }

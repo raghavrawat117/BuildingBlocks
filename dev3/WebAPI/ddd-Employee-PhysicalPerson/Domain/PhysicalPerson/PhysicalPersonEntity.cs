@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 namespace ddd_Employee_PhysicalPerson.Domain.Entities;
 
-public class PhysicalPerson
+public class PhysicalPersonEntity : IHasBusinessKey
 {
     [JsonPropertyName("physicalPersonId")]
     public int PhysicalPersonId { get; set; }
@@ -20,5 +20,10 @@ public class PhysicalPerson
 
     [JsonPropertyName("ssno")]
     public int Ssno { get; set; }
+
+    public string GetBusinessKey()
+    {
+        return PhysicalPersonId.ToString();
+    }
 }
 

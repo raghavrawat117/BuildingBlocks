@@ -28,13 +28,36 @@ public class PhysicalPersonController : ControllerBase
             _logger.LogInformation("Create Request for PhysicalPerson received");
             CreatePhysicalPersonResponse response = await _physicalPersonService.CreatePhysicalPersonAsync(createPhysicalPersonRequest);
 
-            _logger.LogInformation(response.AcknowledgementMessage);
+            _logger.LogInformation(response.StatusMessage);
             return Ok(response);
         }
         catch (CreatePhysicalPersonValidationException ex)
         {
             _logger.LogError($"Validation has failed with erros:{string.Join(" , ", ex.ValidationErrors)}");
-            return BadRequest(new CreatePhysicalPersonResponse(ex));
+            return BadRequest(new CreatePhysicalPersonResponse($"Validation for Physical Person with Id:{ex.FailedId} failed with erros:{string.Join(" , ", ex.ValidationErrors)}"));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while creating physical person.");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreatePhysicalPersonV2([FromBody] CreatePhysicalPersonRequest createPhysicalPersonRequest)
+    {
+        try
+        {
+            _logger.LogInformation("Create Request for PhysicalPerson received");
+            CreatePhysicalPersonResponse response = await _physicalPersonService.CreatePhysicalPersonAsyncV2(createPhysicalPersonRequest);
+
+            _logger.LogInformation(response.StatusMessage);
+            return Ok(response);
+        }
+         catch (CreatePhysicalPersonValidationException ex)
+        {
+            _logger.LogError($"Validation has failed with erros:{string.Join(" , ", ex.ValidationErrors)}");
+            return BadRequest(new CreatePhysicalPersonResponse($"Validation for Physical Person with Id:{ex.FailedId} failed with erros:{string.Join(" , ", ex.ValidationErrors)}"));
         }
         catch (Exception ex)
         {
