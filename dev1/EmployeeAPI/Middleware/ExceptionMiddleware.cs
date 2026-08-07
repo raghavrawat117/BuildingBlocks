@@ -50,6 +50,15 @@ public class ExceptionMiddleware
                 HttpStatusCode.BadRequest,
                 ex.Message);
         }
+        catch (DuplicateEmployeeException ex)
+        {
+            _logger.LogError(ex, "Duplicate employee exception occurred");
+
+            await HandleExceptionAsync(
+                context,
+                HttpStatusCode.Conflict,
+                ex.Message);
+        }
 
         catch (Exception ex)
         {

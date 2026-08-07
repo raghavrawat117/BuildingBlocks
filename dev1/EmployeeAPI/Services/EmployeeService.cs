@@ -38,6 +38,11 @@ public class EmployeeService : IEmployeeService
     public async Task CreateEmployeeAsync(
         CreateEmployeeDto dto)
     {
+        var existingEmployee = await _repository.EmployeeExistsAsync(dto.Email);
+        if (existingEmployee)
+        {
+            throw new DuplicateEmployeeException($"Employee with email {dto.Email} already exists.");
+        }
         var employee = new Employee
         {
             Name = dto.Name,

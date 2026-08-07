@@ -172,4 +172,11 @@ public class EmployeeRepository : IEmployeeRepository
             throw;
         }
     }
+
+    public async Task<bool> EmployeeExistsAsync(string email)
+    {
+        return await _collection
+            .Find(x => x.Email == email)
+            .AnyAsync();
+    }
 }

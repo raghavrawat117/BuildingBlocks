@@ -9,6 +9,8 @@ public interface IEmployeeRepository
     Task CreateAsync(Employee employee);
 
     Task UpdateAsync(string id, Employee employee);
-    
+
     Task DeleteAsync(string id);
+
+    Task<bool> EmployeeExistsAsync(string email);
 }
