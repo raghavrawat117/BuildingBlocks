@@ -32,7 +32,10 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateEmployeeValidator>();
 // Dependency Injection
 builder.Services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-builder.Services.AddSingleton<IEventPublisher,AblyEventPublisher>();
+builder.Services.AddSingleton<IEventPublisher, AblyEventPublisher>();
+
+// Register the AblyEventSubscriber as a hosted service
+builder.Services.AddHostedService<AblyEventSubscriber>();
 
 var app = builder.Build();
 

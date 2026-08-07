@@ -2,7 +2,7 @@ using EmployeeAPI.Models;
 using IO.Ably;
 using Microsoft.Extensions.Options;
 
-namespace EmployeeAPI.Repositories;
+namespace EmployeeAPI.Repositories.Event_Publisher_Repository;
 
 public class AblyEventPublisher : IEventPublisher
 {

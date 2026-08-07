@@ -1,5 +1,7 @@
 using EmployeeAPI.Models;
 
+namespace EmployeeAPI.Repositories.Employee_Repository;
+
 public interface IEmployeeRepository
 {
     Task<List<Employee>> GetAllAsync();

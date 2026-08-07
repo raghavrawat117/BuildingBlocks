@@ -3,7 +3,7 @@ using EmployeeAPI.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace EmployeeAPI.Repositories;
+namespace EmployeeAPI.Repositories.Employee_Repository;
 
 public class EmployeeRepository : IEmployeeRepository
 {
