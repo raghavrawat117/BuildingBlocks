@@ -1,6 +1,9 @@
+using EmployeeAPI.Exceptions;
 using EmployeeAPI.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+
+namespace EmployeeAPI.Repositories;
 
 public class EmployeeRepository : IEmployeeRepository
 {
@@ -28,10 +31,20 @@ public class EmployeeRepository : IEmployeeRepository
         try
         {
             var listEmployee = await _collection
-                 .Find(_ => true)
-                 .ToListAsync();
+                .Find(_ => true)
+                .ToListAsync();
 
             return listEmployee;
+        }
+        catch (MongoConnectionException ex)
+        {
+            _logger.LogError(ex, "Error occured while getting the list of employees from MongoDB");
+            throw new DatabaseConnectionException("Failed to connect to the database. Please try again later.", ex);
+        }
+        catch (TimeoutException ex)
+        {
+            _logger.LogError(ex, "MongoDB operation timed out while getting the list of employees");
+            throw new DatabaseConnectionException("Database operation timed out. Please try again later.", ex);
         }
         catch (MongoException ex)
         {
@@ -50,7 +63,22 @@ public class EmployeeRepository : IEmployeeRepository
 
             return employee;
         }
+        catch (MongoConnectionException ex)
+        {
+            _logger.LogError(ex, "Error occured while getting the data from MongoDB based on ID");
+            throw new DatabaseConnectionException("Failed to connect to the database. Please try again later.", ex);
+        }
+        catch (TimeoutException ex)
+        {
+            _logger.LogError(ex, "MongoDB operation timed out while getting the data from MongoDB based on ID");
+            throw new DatabaseConnectionException("Database operation timed out. Please try again later.", ex);
+        }
         catch (MongoException ex)
+        {
+            _logger.LogError(ex, "Error occured while getting the data from MongoDB based on ID");
+            throw;
+        }
+        catch (Exception ex)
         {
             _logger.LogError(ex, "Error occured while getting the data from MongoDB based on ID");
             throw;
@@ -63,8 +91,23 @@ public class EmployeeRepository : IEmployeeRepository
         {
             await _collection.InsertOneAsync(employee);
         }
+        catch (MongoConnectionException ex)
+        {
+            _logger.LogError(ex, "Error occured while creating employee with emailId {emailId}", employee.Email);
+            throw new DatabaseConnectionException("Failed to connect to the database. Please try again later.", ex);
+        }
+        catch (TimeoutException ex)
+        {
+            _logger.LogError(ex, "MongoDB operation timed out while creating employee with emailId {emailId}", employee.Email);
+            throw new DatabaseConnectionException("Database operation timed out. Please try again later.", ex);
+        }
 
         catch (MongoException ex)
+        {
+            _logger.LogError(ex, "Error occured while creating employee with emailId {emailId}", employee.Email);
+            throw;
+        }
+        catch (Exception ex)
         {
             _logger.LogError(ex, "Error occured while creating employee with emailId {emailId}", employee.Email);
             throw;
@@ -76,12 +119,27 @@ public class EmployeeRepository : IEmployeeRepository
         try
         {
             await _collection.ReplaceOneAsync(
-            x => x.Id == id,
-            employee);
+                x => x.Id == id,
+                employee);
+        }
+        catch (MongoConnectionException ex)
+        {
+            _logger.LogError(ex, "Error occured while updating the employee with EmployeeId: {empId}", id);
+            throw new DatabaseConnectionException("Failed to connect to the database. Please try again later.", ex);
+        }
+        catch (TimeoutException ex)
+        {
+            _logger.LogError(ex, "MongoDB operation timed out while updating the employee with EmployeeId: {empId}", id);
+            throw new DatabaseConnectionException("Database operation timed out. Please try again later.", ex);
         }
         catch (MongoException ex)
         {
-            _logger.LogError(ex, "Error occured while updating the employee");
+            _logger.LogError(ex, "Error occured while updating the employee with EmployeeId: {empId}", id);
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occured while updating the employee with EmployeeId: {empId}", id);
             throw;
         }
     }
@@ -91,7 +149,22 @@ public class EmployeeRepository : IEmployeeRepository
         try
         {
             await _collection.DeleteOneAsync(
-            x => x.Id == id);
+                x => x.Id == id);
+        }
+        catch (MongoConnectionException ex)
+        {
+            _logger.LogError(ex, "Error occured while deleting the employee with EmployeeId: {empId}", id);
+            throw new DatabaseConnectionException("Failed to connect to the database. Please try again later.", ex);
+        }
+        catch (TimeoutException ex)
+        {
+            _logger.LogError(ex, "MongoDB operation timed out while deleting the employee with EmployeeId: {empId}", id);
+            throw new DatabaseConnectionException("Database operation timed out. Please try again later.", ex);
+        }
+        catch (MongoException ex)
+        {
+            _logger.LogError(ex, "Error occured while deleting the employee with EmployeeId: {empId}", id);
+            throw;
         }
         catch (Exception ex)
         {

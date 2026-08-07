@@ -1,5 +1,3 @@
-using EmployeeAPI.Repositories;
-
 namespace EmployeeAPI.Repositories;
 public interface IEventPublisher
 {

@@ -2,6 +2,7 @@ using EmployeeAPI.DTOs;
 using EmployeeAPI.Exceptions;
 using EmployeeAPI.Models;
 using EmployeeAPI.Repositories;
+using MongoDB.Bson;
 
 namespace EmployeeAPI.Services;
 
@@ -53,6 +54,10 @@ public class EmployeeService : IEmployeeService
     public async Task<EmployeeResponseDto?>
         GetEmployeeByIdAsync(string id)
     {
+        if (!ObjectId.TryParse(id, out _))
+        {
+            throw new InvalidIdException("Invalid employee id format.");
+        }
         var employee =
             await _repository.GetByIdAsync(id) ?? throw new NotFoundException($"Employee {id} not found");
 
@@ -69,6 +74,10 @@ public class EmployeeService : IEmployeeService
     string id,
     UpdateEmployeeDto dto)
     {
+        if (!ObjectId.TryParse(id, out _))
+        {
+            throw new InvalidIdException("Invalid employee id format.");
+        }
         var employee =
             await _repository.GetByIdAsync(id) ?? throw new NotFoundException($"Employee {id} not found");
 
@@ -82,6 +91,10 @@ public class EmployeeService : IEmployeeService
 
     public async Task DeleteEmployeeAsync(string id)
     {
+        if (!ObjectId.TryParse(id, out _))
+        {
+            throw new InvalidIdException("Invalid employee id format.");
+        }
         _ = await _repository.GetByIdAsync(id) ?? throw new NotFoundException($"Employee {id} not found");
         await _repository.DeleteAsync(id);
     }

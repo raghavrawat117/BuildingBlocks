@@ -1,7 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using EmployeeAPI.DTOs;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 
 namespace EmployeeAPI.Validators;
 

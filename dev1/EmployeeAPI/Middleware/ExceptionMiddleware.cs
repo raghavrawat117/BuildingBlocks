@@ -1,7 +1,6 @@
 using EmployeeAPI.Exceptions;
 using EmployeeAPI.Models;
 using System.Net;
-using System.Text.Json;
 
 namespace EmployeeAPI.Middleware;
 
@@ -27,18 +26,31 @@ public class ExceptionMiddleware
         }
         catch (NotFoundException ex)
         {
+            _logger.LogError(ex, "Not found exception occurred");
             await HandleExceptionAsync(
                 context,
                 HttpStatusCode.NotFound,
                 ex.Message);
         }
-        // catch (BusinessException ex)
-        // {
-        //     await HandleExceptionAsync(
-        //         context,
-        //         HttpStatusCode.BadRequest,
-        //         ex.Message);
-        // }
+        catch (DatabaseConnectionException ex)
+        {
+            _logger.LogError(ex, "Database connection exception occurred");
+
+            await HandleExceptionAsync(
+                context,
+                HttpStatusCode.ServiceUnavailable,
+                ex.Message);
+        }
+        catch (InvalidIdException ex)
+        {
+            _logger.LogError(ex, "Invalid exception occurred");
+
+            await HandleExceptionAsync(
+                context,
+                HttpStatusCode.BadRequest,
+                ex.Message);
+        }
+
         catch (Exception ex)
         {
             _logger.LogError(
@@ -70,7 +82,6 @@ public class ExceptionMiddleware
             TraceId = context.TraceIdentifier
         };
 
-        await context.Response.WriteAsync(
-            JsonSerializer.Serialize(response));
+        await context.Response.WriteAsJsonAsync(response);
     }
 }
