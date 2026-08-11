@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Redis/">
+    <Project Path="Redis/RedisConsoleAppv1/RedisConsoleAppv1.csproj" />
+  </Folder>
+  <Folder Name="/WebAPI/">
+    <Project Path="WebAPI/PubToMongoDB/PubToMongoDB.csproj" />
+  </Folder>
+</Solution>

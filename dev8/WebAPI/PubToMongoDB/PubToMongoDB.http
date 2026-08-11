@@ -1,0 +1,6 @@
+@PubToMongoDB_HostAddress = http://localhost:5096
+
+GET {{PubToMongoDB_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
