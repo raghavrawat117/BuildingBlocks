@@ -1,9 +1,10 @@
-using ddd_Employee_PhysicalPerson.Controllers;
-using ddd_Employee_PhysicalPerson.Domain;
+using ddd_Employee_PhysicalPerson.Domain.Entities;
 
 namespace ddd_Employee_PhysicalPerson.Application;
 
 public interface IEmployeeRepository
 {
-    Task<bool> CreateEmployeeAsync(Employee employee);
+    Task<bool> CreateEmployeeAsync(EmployeeEntity employee);
+    Task<EmployeeEntity> GetEmployeeAsync(int employeeId);
+    Task<bool> StoreCanonical(CanonicalEnvelope<EmployeeEntity> employee);
 }

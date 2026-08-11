@@ -1,5 +1,7 @@
 using EmployeeAPI.Models;
 
+namespace EmployeeAPI.Repositories.Employee_Repository;
+
 public interface IEmployeeRepository
 {
     Task<List<Employee>> GetAllAsync();
@@ -9,6 +11,8 @@ public interface IEmployeeRepository
     Task CreateAsync(Employee employee);
 
     Task UpdateAsync(string id, Employee employee);
-    
+
     Task DeleteAsync(string id);
+
+    Task<bool> EmployeeExistsAsync(string email);
 }

@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using EmployeeAPI.DTOs;
 using FluentValidation;
 

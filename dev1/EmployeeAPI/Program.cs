@@ -3,12 +3,19 @@ using EmployeeAPI.Models;
 using FluentValidation;
 using EmployeeAPI.Validators;
 using FluentValidation.AspNetCore;
+using EmployeeAPI.Middleware;
+using EmployeeAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // MongoDB configuration
 builder.Services.Configure<EmployeeDatabaseSettings>(
 builder.Configuration.GetSection("EmployeeDatabase"));
+
+//Ably configuration
+builder.Services.Configure<AblySettings>(
+builder.Configuration.GetSection("AblySettings")    
+);
 
 builder.Services.AddControllers();
 
@@ -25,6 +32,10 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateEmployeeValidator>();
 // Dependency Injection
 builder.Services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddSingleton<IEventPublisher, AblyEventPublisher>();
+
+// Register the AblyEventSubscriber as a hosted service
+builder.Services.AddHostedService<AblyEventSubscriber>();
 
 var app = builder.Build();
 
@@ -36,6 +47,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 

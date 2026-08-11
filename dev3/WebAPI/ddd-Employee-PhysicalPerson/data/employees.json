@@ -7,7 +7,8 @@
         "location": "Kolkata",
         "grade": 3,
         "experience": 4,
-        "phoneNumber": 4085555555,
+        "phoneNumber": 40855555551,
+        "salary": 75000,
         "workEmail": "anibrata.saha@laminar.com"
     },
     {
@@ -18,7 +19,8 @@
         "location": "Noida",
         "grade": 1,
         "experience": 5,
-        "phoneNumber": 4081111111,
+        "phoneNumber": 40811111111,
+        "salary": 70000,
         "workEmail": "raghav.rawat@laminar.com"
     },
     {
@@ -29,7 +31,8 @@
         "location": "Banglore",
         "grade": 2,
         "experience": 2,
-        "phoneNumber": 4082222222,
+        "phoneNumber": 40822222221,
+        "salary": 65000,
         "workEmail": "devdutt.rai@laminar.com"
     },
     {
@@ -40,7 +43,8 @@
         "location": "Hyderabad",
         "grade": 3,
         "experience": 1,
-        "phoneNumber": 4083333333,
+        "phoneNumber": 40833333331,
+        "salary": 75000,
         "workEmail": "abhinav.reddy@laminar.com"
     }
 ]

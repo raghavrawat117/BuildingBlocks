@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
-namespace ddd_Employee_PhysicalPerson.Domain;
-public class Employee
+namespace ddd_Employee_PhysicalPerson.Domain.Entities;
+
+public class EmployeeEntity : IHasBusinessKey
 {
     [JsonPropertyName("employeeId")]
     public int EmployeeId { get; set; }
@@ -26,7 +27,15 @@ public class Employee
     [JsonPropertyName("phoneNumber")]
     public long PhoneNumber { get; set; }
 
+    [JsonPropertyName("salary")]
+    public int Salary { get; set; }
+
     [JsonPropertyName("workEmail")]
     public string WorkEmail { get; set; } = string.Empty;
+
+    public string GetBusinessKey()
+    {
+        return EmployeeId.ToString();
+    }
 }
 

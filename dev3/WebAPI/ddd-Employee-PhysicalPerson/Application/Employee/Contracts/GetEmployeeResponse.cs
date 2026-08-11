@@ -1,6 +1,6 @@
-namespace ddd_Employee_PhysicalPerson.Controllers;
+namespace ddd_Employee_PhysicalPerson.Application.Employee.Contracts;
 
-public class CreateEmployeeDTO
+public class GetEmployeeResponse
 {
     public int EmployeeId { get; set; }
     public int PhysicalPersonId { get; set; }
