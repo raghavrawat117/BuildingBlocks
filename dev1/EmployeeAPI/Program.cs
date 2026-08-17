@@ -1,10 +1,15 @@
-using EmployeeAPI.Services;
 using EmployeeAPI.Models;
 using FluentValidation;
 using EmployeeAPI.Validators;
 using FluentValidation.AspNetCore;
 using EmployeeAPI.Middleware;
+using EmployeeAPI.Repositories.Employee_Repository;
+using EmployeeAPI.Repositories.Event_Publisher_Repository;
+using EmployeeAPI.Services.EmployeeService;
+using EmployeeAPI.HostedService;
 using EmployeeAPI.Repositories;
+using EmployeeAPI.Repositories.Template_Repository;
+using EmployeeAPI.Services.TransformationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +38,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateEmployeeValidator>();
 builder.Services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddSingleton<IEventPublisher, AblyEventPublisher>();
+builder.Services.AddScoped<ITemplateRepository, TemplateRepository>();
+builder.Services.AddScoped<ITransformationService, TransformationService>();
 
 // Register the AblyEventSubscriber as a hosted service
 builder.Services.AddHostedService<AblyEventSubscriber>();

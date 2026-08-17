@@ -1,10 +1,11 @@
 using EmployeeAPI.DTOs;
 using EmployeeAPI.Exceptions;
 using EmployeeAPI.Models;
-using EmployeeAPI.Repositories;
+using EmployeeAPI.Repositories.Employee_Repository;
+using EmployeeAPI.Repositories.Event_Publisher_Repository;
 using MongoDB.Bson;
 
-namespace EmployeeAPI.Services;
+namespace EmployeeAPI.Services.EmployeeService;
 
 public class EmployeeService : IEmployeeService
 {

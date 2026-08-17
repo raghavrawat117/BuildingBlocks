@@ -1,6 +1,6 @@
 using EmployeeAPI.DTOs;
 
-namespace EmployeeAPI.Services;
+namespace EmployeeAPI.Services.EmployeeService;
 public interface IEmployeeService
 {
     Task<List<EmployeeResponseDto>> GetAllEmployeesAsync();

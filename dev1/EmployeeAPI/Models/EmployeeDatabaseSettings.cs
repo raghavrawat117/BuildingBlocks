@@ -7,4 +7,6 @@ public class EmployeeDatabaseSettings
     public string DatabaseName { get; set; } = null!;
 
     public string EmployeeCollectionName { get; set; } = null!;
+
+    public string TemplateCollectionName { get; set; } = null!;
 }

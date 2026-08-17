@@ -1,5 +1,5 @@
 using EmployeeAPI.DTOs;
-using EmployeeAPI.Services;
+using EmployeeAPI.Services.EmployeeService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeAPI.Controllers;
